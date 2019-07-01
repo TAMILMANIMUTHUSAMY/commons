@@ -1,5 +1,10 @@
 package com.agathium.common.configuration;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.util.List;
 
 /**
@@ -7,10 +12,17 @@ import java.util.List;
  * @version : 1.0
  * @since : 01-07-2019 21:25
  */
+@Document
+@TypeAlias("mutation")
 public class Mutations {
 
+    @Id
     private String id;
+
+    @Field("collectionname")
     private String collectionName;
+
+    @Field("fields")
     private List<String> fields;
 
     public String getId() {

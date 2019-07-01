@@ -1,5 +1,9 @@
 package com.agathium.common.configuration;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 
 /**
@@ -8,10 +12,14 @@ import java.util.List;
  * @since : 01-07-2019 21:20
  */
 
+@Document
+@TypeAlias("schema")
 public class Schema {
 
+    @Id
     private String collectionName;
 
+    @org.springframework.data.mongodb.core.mapping.Field("fields")
     private List<Field> fields;
 
     public String getCollectionName() {

@@ -30,9 +30,9 @@ public class CommonRepository {
     @Autowired
     private MongoDBConnection dbConnection;
 
-    public Document save(String collectionName, Object object) {
+    public Document save(String collection, Object object) {
         MongoDatabase mongoDatabase = dbConnection.getConnection().getDatabase("agathium_applications_data");
-        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(collectionName);
+        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(collection);
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
         try {
@@ -45,12 +45,26 @@ public class CommonRepository {
         return document;
     }
 
-    public Document update(String collectionName, String id, Object object) {
+    public Document update(String collection, String id, Object object) {
         MongoDatabase mongoDatabase = dbConnection.getConnection().getDatabase("agathium_applications_data");
-        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(collectionName);
+        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(collection);
         Bson bson = Updates.set("firstname", "xxxx");
         FindOneAndUpdateOptions findOneAndUpdateOptions = new FindOneAndUpdateOptions();
         findOneAndUpdateOptions.returnDocument(ReturnDocument.AFTER);
         return mongoCollection.findOneAndUpdate(Filters.eq("_id", new ObjectId(id)), bson, findOneAndUpdateOptions);
+    }
+
+    public Document find(String collection, String id) {
+        MongoDatabase mongoDatabase = dbConnection.getConnection().getDatabase("agathium_applications_data");
+        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(collection);
+        Bson bson = Filters.eq("_id", new ObjectId(id));
+        return mongoCollection.find(bson).first();
+    }
+
+    public Document delete(String collection, String id) {
+        MongoDatabase mongoDatabase = dbConnection.getConnection().getDatabase("agathium_applications_data");
+        MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(collection);
+        Bson bson = Filters.eq("_id", new ObjectId(id));
+        return mongoCollection.findOneAndDelete(bson);
     }
 }
