@@ -10,6 +10,7 @@ public class Field {
     private String name;
     private String type;
     private Boolean nullable;
+    private Boolean readOnly;
 
     public String getName() {
         return name;
@@ -33,5 +34,13 @@ public class Field {
 
     public void setNullable(Boolean nullable) {
         this.nullable = nullable;
+    }
+
+    public Boolean getReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(Boolean readOnly) {
+        this.readOnly = readOnly;
     }
 }
