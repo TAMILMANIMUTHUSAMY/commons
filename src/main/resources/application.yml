@@ -1,0 +1,18 @@
+server:
+  port: 1988
+
+logging:
+  level:
+    com:
+      agathium:
+        common: debug
+
+mongodb:
+  hosts:
+    -
+      host: localhost
+      port: 27017
+#    -
+#      host: localhost
+#      port: 27018
+
