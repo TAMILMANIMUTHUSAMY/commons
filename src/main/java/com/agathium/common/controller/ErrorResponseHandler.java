@@ -2,6 +2,7 @@ package com.agathium.common.controller;
 
 import com.agathium.common.exception.EntityNotFoundException;
 import com.agathium.common.exception.Errors;
+import com.agathium.common.exception.ValidationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +42,10 @@ public class ErrorResponseHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public final ResponseEntity<Errors> handleValidationException(EntityNotFoundException ex, WebRequest request) {
         return new ResponseEntity<>(new Errors(ex.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public final ResponseEntity<?> handleValidationException(ValidationException ex, WebRequest request) {
+        return new ResponseEntity<>(ex.getErrors(), HttpStatus.BAD_REQUEST);
     }
 }

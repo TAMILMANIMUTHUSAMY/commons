@@ -8,5 +8,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @version : 1.0
  * @since : 01-07-2019 21:33
  */
-public interface SchemasRepository extends MongoRepository<Schema, String> {
+public interface SchemaRepository extends MongoRepository<Schema, String> {
 }

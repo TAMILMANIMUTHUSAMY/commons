@@ -2,7 +2,7 @@ package com.agathium.common.controller;
 
 import com.agathium.common.configuration.Schema;
 import com.agathium.common.exception.EntityNotFoundException;
-import com.agathium.common.repository.SchemasRepository;
+import com.agathium.common.repository.SchemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class SchemaController {
 
     @Autowired
-    private SchemasRepository repository;
+    private SchemaRepository repository;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Schema> post(@RequestBody Schema schema) {
