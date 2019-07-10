@@ -1,0 +1,27 @@
+server:
+  port: 1988
+
+logging:
+  level:
+    com:
+      agathium:
+        common: debug
+
+mongodb:
+  database: agathium_applications_data
+  hosts:
+    -
+      host: localhost
+      port: 27017
+#    -
+#      host: localhost
+#      port: 27018
+
+spring:
+  data:
+    mongodb:
+      database: agathium_applications_data
+      repositories:
+        type: AUTO
+      host: localhost
+      port: 27017
