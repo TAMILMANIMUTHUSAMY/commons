@@ -17,6 +17,7 @@ import java.util.List;
 public class Schema {
 
     @Id
+    @org.springframework.data.mongodb.core.mapping.Field("_id")
     private String collectionName;
 
     @org.springframework.data.mongodb.core.mapping.Field("fields")

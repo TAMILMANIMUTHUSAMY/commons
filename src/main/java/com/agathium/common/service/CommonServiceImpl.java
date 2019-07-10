@@ -6,9 +6,7 @@ import com.agathium.common.repository.CommonRepository;
 import com.agathium.common.repository.SchemaRepository;
 import com.agathium.common.service.api.CommonService;
 import com.agathium.common.validator.api.SchemaValidator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.bson.Document;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,20 +17,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommonServiceImpl implements CommonService {
 
-    private static final Logger LOGGER = LogManager.getLogger();
-
-    @Autowired
+    private SchemaValidator schemaValidator;
     private CommonRepository commonRepository;
-
-    @Autowired
     private SchemaRepository schemaRepository;
 
-    @Autowired
-    private SchemaValidator schemaValidator;
+    public CommonServiceImpl(CommonRepository commonRepository, SchemaRepository schemaRepository, SchemaValidator schemaValidator) {
+        this.commonRepository = commonRepository;
+        this.schemaRepository = schemaRepository;
+        this.schemaValidator = schemaValidator;
+    }
 
     @Override
     public Object get(String collection, String id) {
-        return commonRepository.find(collection, id);
+        Document document = commonRepository.find(collection, id);
+        if (document == null)
+            throw new EntityNotFoundException(collection, id);
+        document.replace("_id", document.getObjectId("_id").toString());
+        return document;
     }
 
     @Override
@@ -44,11 +45,19 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public Object put(String collection, String id, Object object) {
-        return commonRepository.update(collection, id, object).getObjectId("_id").toString();
+        Schema schema = schemaRepository.findById(collection).orElseThrow(() -> new EntityNotFoundException("Schema", collection));
+        schemaValidator.validate(schema, object);
+        Document document = commonRepository.update(collection, id, object);
+        if (document == null)
+            throw new EntityNotFoundException(collection, id);
+        return document.getObjectId("_id").toString();
     }
 
     @Override
     public Object delete(String collection, String id) {
-        return commonRepository.delete(collection, id).getObjectId("_id").toString();
+        Document document = commonRepository.delete(collection, id);
+        if (document == null)
+            throw new EntityNotFoundException(collection, id);
+        return document.getObjectId("_id").toString();
     }
 }

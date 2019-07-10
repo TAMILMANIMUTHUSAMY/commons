@@ -8,6 +8,7 @@ logging:
         common: debug
 
 mongodb:
+  database: agathium_applications_data
   hosts:
     -
       host: localhost
@@ -16,3 +17,11 @@ mongodb:
 #      host: localhost
 #      port: 27018
 
+spring:
+  data:
+    mongodb:
+      database: agathium_applications_data
+      repositories:
+        type: AUTO
+      host: localhost
+      port: 27017

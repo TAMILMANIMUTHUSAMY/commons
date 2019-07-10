@@ -48,4 +48,15 @@ public class ErrorResponseHandler extends ResponseEntityExceptionHandler {
     public final ResponseEntity<?> handleValidationException(ValidationException ex, WebRequest request) {
         return new ResponseEntity<>(ex.getErrors(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public final ResponseEntity<?> handleValidationException(IllegalArgumentException ex, WebRequest request) {
+        ResponseEntity responseEntity = null;
+        if (ex.getMessage() != null && ex.getMessage().contains("invalid hexadecimal representation of an ObjectId")) {
+            responseEntity =  new ResponseEntity<>(new Errors("Invalid id"), HttpStatus.BAD_REQUEST);
+        } else {
+            responseEntity =  new ResponseEntity<>(new Errors(ex.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
 }

@@ -8,6 +8,9 @@ import com.agathium.common.validator.api.SchemaValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.PathNotFoundException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,6 +24,8 @@ public class SchemaValidatorImpl implements SchemaValidator {
     private static final String ROOT_PREFIX = "$.";
     private static final String PATH_NOTATION = ".";
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     @Override
     public void validate(Schema schema, Object object) {
 
@@ -32,16 +37,24 @@ public class SchemaValidatorImpl implements SchemaValidator {
             e.printStackTrace();
         }
         String jSON = json;
-        schema.getFields().stream().forEach(field -> {
-            String xpath = ROOT_PREFIX + PATH_NOTATION + field.getName();
-            Object o = JsonPath.read(jSON, xpath);
+        schema.getFields().forEach(field -> {
+            String xpath = ROOT_PREFIX + field.getName();
+            LOGGER.debug(xpath);
+            Object o = null;
+            try {
+                o = JsonPath.read(jSON, xpath);
+            } catch (PathNotFoundException e) {
+
+                validateField(field, null);
+            }
+            LOGGER.debug(o);
             validateField(field, o);
         });
     }
 
     private void validateField(Field field, Object o) {
         if (!field.getNullable() && (o == null || o.toString().equals(""))) {
-            throw new ValidationException(new Errors(field.getName() + " can not be empty."));
+            throw new ValidationException(new Errors(field.getName() + " is mandatory"));
         }
     }
 }
