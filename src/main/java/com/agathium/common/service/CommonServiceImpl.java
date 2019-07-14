@@ -1,6 +1,6 @@
 package com.agathium.common.service;
 
-import com.agathium.common.configuration.Schema;
+import com.agathium.common.document.Schema;
 import com.agathium.common.exception.EntityNotFoundException;
 import com.agathium.common.repository.CommonRepository;
 import com.agathium.common.repository.SchemaRepository;

@@ -1,6 +1,6 @@
 package com.agathium.common.controller;
 
-import com.agathium.common.configuration.Schema;
+import com.agathium.common.document.Schema;
 import com.agathium.common.exception.EntityNotFoundException;
 import com.agathium.common.repository.SchemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class SchemaController {
     @GetMapping(path = "/{collectionName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Schema> get(@PathVariable("collectionName") String collectionName) {
         return new ResponseEntity<>(repository.findById(collectionName)
-                .orElseThrow(() -> {
+                .<RuntimeException>orElseThrow(() -> {
                     throw new EntityNotFoundException("Schema", collectionName);
                 }), HttpStatus.OK);
     }

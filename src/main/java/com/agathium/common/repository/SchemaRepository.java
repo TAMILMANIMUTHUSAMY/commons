@@ -1,6 +1,6 @@
 package com.agathium.common.repository;
 
-import com.agathium.common.configuration.Schema;
+import com.agathium.common.document.Schema;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**

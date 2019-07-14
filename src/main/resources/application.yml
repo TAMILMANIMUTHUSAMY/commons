@@ -1,5 +1,5 @@
 server:
-  port: 1988
+  port: ${PORT:1988}
 
 logging:
   level:
@@ -8,11 +8,11 @@ logging:
         common: debug
 
 mongodb:
-  database: agathium_applications_data
+  database: ${DB:agathium_applications_data}
   hosts:
     -
-      host: localhost
-      port: 27017
+      host: ${DB_HOST:localhost}
+      port: ${DB_PORT:27017}
 #    -
 #      host: localhost
 #      port: 27018
@@ -20,8 +20,8 @@ mongodb:
 spring:
   data:
     mongodb:
-      database: agathium_applications_data
+      database: ${DB:agathium_applications_data}
       repositories:
         type: AUTO
-      host: localhost
-      port: 27017
+      host: ${DB_HOST:localhost}
+      port: ${DB_PORT:27017}

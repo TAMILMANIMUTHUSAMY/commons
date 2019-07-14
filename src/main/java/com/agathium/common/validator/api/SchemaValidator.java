@@ -1,6 +1,6 @@
 package com.agathium.common.validator.api;
 
-import com.agathium.common.configuration.Schema;
+import com.agathium.common.document.Schema;
 
 /**
  * @author : Tamilmani

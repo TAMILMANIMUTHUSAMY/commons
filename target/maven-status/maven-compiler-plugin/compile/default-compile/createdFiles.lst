@@ -1,7 +1,5 @@
-com\agathium\common\configuration\Field.class
 com\agathium\common\validator\api\SchemaValidator.class
 com\agathium\common\configuration\MongoDBConfigurationProperties.class
-com\agathium\common\configuration\Mutations.class
 com\agathium\common\CommonApplication.class
 com\agathium\common\exception\Errors.class
 com\agathium\common\controller\ErrorResponseHandler.class
@@ -11,11 +9,13 @@ com\agathium\common\repository\CommonRepository.class
 com\agathium\common\configuration\MongoDBConfiguration.class
 com\agathium\common\repository\MutationsRepository.class
 com\agathium\common\service\api\CommonService.class
+com\agathium\common\document\Mutations.class
+com\agathium\common\document\Schema.class
 com\agathium\common\exception\EntityNotFoundException.class
-com\agathium\common\configuration\Schema.class
 com\agathium\common\configuration\ServerAddress.class
 com\agathium\common\controller\SchemaController.class
 com\agathium\common\repository\SchemaRepository.class
 com\agathium\common\validator\SchemaValidatorImpl.class
 com\agathium\common\service\CommonServiceImpl.class
 com\agathium\common\exception\ValidationException.class
+com\agathium\common\document\Field.class

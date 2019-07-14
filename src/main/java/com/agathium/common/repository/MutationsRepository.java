@@ -1,6 +1,6 @@
 package com.agathium.common.repository;
 
-import com.agathium.common.configuration.Mutations;
+import com.agathium.common.document.Mutations;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**

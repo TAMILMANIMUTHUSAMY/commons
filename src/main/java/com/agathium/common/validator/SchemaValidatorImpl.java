@@ -1,7 +1,7 @@
 package com.agathium.common.validator;
 
-import com.agathium.common.configuration.Field;
-import com.agathium.common.configuration.Schema;
+import com.agathium.common.document.Field;
+import com.agathium.common.document.Schema;
 import com.agathium.common.exception.Errors;
 import com.agathium.common.exception.ValidationException;
 import com.agathium.common.validator.api.SchemaValidator;
